@@ -196,13 +196,14 @@ span {
 
 #map {
   display: block;
+
   height: 100%;
   margin: 0 5%;
 }
 
 #mapDiv {
   height: 400px;
-  width: 100%;
+  width: 75%;
   padding-bottom: 5%;
 }
 

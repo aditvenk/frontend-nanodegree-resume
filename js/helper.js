@@ -116,7 +116,6 @@ function initializeMap() {
   */
   map = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
-
   /*
   locationFinder() returns an array of every location string from the JSONs
   written for bio, education, and work.
@@ -144,7 +143,7 @@ function initializeMap() {
     work.jobs.forEach(function(job){
       locations.push(job.location);
     });
-
+    //console.log('locationFinder: '+ locations);
     return locations;
   }
 
@@ -178,6 +177,7 @@ function initializeMap() {
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
+      infoWindow.open(map, marker);
     });
 
     // this is where the pin actually gets added to the map.
@@ -204,13 +204,19 @@ function initializeMap() {
   and fires off Google place searches for each location
   */
   function pinPoster(locations) {
-
+    //console.log('pinPoster: '+locations);
     // creates a Google place search service object. PlacesService does the work of
     // actually searching for location data.
     var service = new google.maps.places.PlacesService(map);
 
     // Iterates through the array of locations, creates a search object for each location
       locations.forEach(function(place){
+        // New sections to check if locations[place] exists
+        // This keeps google maps from breaking if a location field is empty.
+        
+        //if (!locations[place]) 
+        //  return true;
+        console.log(locations[place]);
       // the search request object
       var request = {
         query: place
@@ -239,11 +245,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
+window.addEventListener('resize', function(e) {
   //Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+  map.fitBounds(mapBounds);
+  });
